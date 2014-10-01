@@ -35,14 +35,13 @@
 		:parameters (?b - ball ?a - arm ?r - room)
 		:precondition
 			(and
-				(not (free ?a))
 				(holding ?a ?b)
 			)
 		:effect
 			(and
 				(ball-at ?b ?r)
-				not (holding ?a ?b)
 				(free ?a)
+				(not (holding ?a ?b))
 			)
 	)
 	(:action move
