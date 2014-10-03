@@ -1,4 +1,3 @@
-
 (define
 	(domain carrier)
 	(:requirements
@@ -21,44 +20,61 @@
 		:parameters (?b - ball ?a - arm ?r - room)
 		:precondition
 			(and
-		//arm must be empty
-			
+				(free ?a)
+				(ball-at ?b ?r)
+				(robot-at ?r)
 			)
 		:effect
 			(and
-
-		//arm is holding ball and not empty
-		//arm is in same hand
+				(holding ?a ?b)
+				(not (free ?a))
+				(not (ball-at ?b ?r))
 			)
 	)
 	(:action drop
 		:parameters (?b - ball ?a - arm ?r - room)
 		:precondition
 			(and
+				(robot-at ?r)
 				(holding ?a ?b)
 			)
 		:effect
 			(and
-				move
-				not ((arm-free))
-		//ball is moved to current room
-		//arm is empty
-
-
+				(robot-at ?r)
+				(free ?a)
+				(ball-at ?b ?r)
+				(not (holding ?a ?b))
 			)
 	)
 	(:action move
 		:parameters (?f ?t - room)
 		:precondition
 			(and
-
-
+				(robot-at ?f)
 			)
 		:effect
 			(and
-
-
+				(not (robot-at ?f))
+				(robot-at ?t)
+			)
+	)
+	(:action move-pick-move-drop-move
+		:parameters (?b - ball ?a - arm ?f ?t - room)
+		:precondition
+			(and
+				(free ?a)
+			)
+		:effect
+			(and
+				(not (robot-at ?f))
+				(robot-at ?t)
+				(holding ?a ?b)
+				(not (ball-at ?b ?f))
+				(ball-at ?b ?t)
+				(not (holding ?a ?b))
+				(free ?a)
+				(not (robot-at ?f))
+				(robot-at ?t)
 			)
 	)
 )
-
