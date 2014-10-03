@@ -40,7 +40,6 @@
 			)
 		:effect
 			(and
-				(robot-at ?r)
 				(free ?a)
 				(ball-at ?b ?r)
 				(not (holding ?a ?b))
@@ -66,15 +65,13 @@
 			)
 		:effect
 			(and
-				(not (robot-at ?f))
-				(robot-at ?t)
-				(holding ?a ?b)
-				(not (ball-at ?b ?f))
-				(ball-at ?b ?t)
-				(not (holding ?a ?b))
-				(free ?a)
-				(not (robot-at ?f))
-				(robot-at ?t)
+				(move ?f ?t)
+				(pick ?b ?a ?t)
+				(pick ?b ?a ?t)
+				(move ?f ?t)
+				(drop ?b ?a ?f)
+				(drop ?b ?a ?t)
+				(ball-at ?b ?f)
 			)
 	)
 )
