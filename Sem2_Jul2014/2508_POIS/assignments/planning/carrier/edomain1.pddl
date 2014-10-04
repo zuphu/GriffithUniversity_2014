@@ -17,8 +17,7 @@
 		(holding ?a - arm ?b - ball)
 	)
 	(:action pick
-		:parameters (?b - ball ?a - arm ?r - room)
-		:precondition
+		:parameters (?b - ball ?a - arm ?r - room) :precondition
 			(and
 				(free ?a)
 				(ball-at ?b ?r)
@@ -62,14 +61,17 @@
 		:parameters (?b - ball ?a - arm ?f ?t - room)
 		:precondition
 			(and
+				(robot-at ?f)
+				(ball-at ?b ?f)
 				(free ?a)
 			)
 		:effect
 			(and
-				(pick ?b ?a ?t)
-				(move ?f ?t)
-				(drop ?b ?a ?t)
-				(ball-at ?b ?f)
+				(not (robot-at ?f))
+				(robot-at ?t)
+				(not (ball-at ?b ?f))
+				(ball-at ?b ?t)
+				(free ?a)
 			)
 	)
 )
