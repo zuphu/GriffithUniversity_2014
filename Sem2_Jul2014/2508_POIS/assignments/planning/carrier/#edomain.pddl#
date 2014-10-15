@@ -1,4 +1,4 @@
-(define
+efine
 	(domain carrier)
 	(:requirements
 		:strips :typing
@@ -40,6 +40,7 @@
 			)
 		:effect
 			(and
+				(robot-at ?r)
 				(free ?a)
 				(ball-at ?b ?r)
 				(not (holding ?a ?b))
@@ -57,17 +58,23 @@
 				(robot-at ?t)
 			)
 	)
- 	(:action move-pick-move-drop
+	(:action move-pick-move-drop-move
 		:parameters (?b - ball ?a - arm ?f ?t - room)
 		:precondition
 			(and
 				(free ?a)
-				(robot-at ?f)
-				(ball-at ?b ?t)
 			)
 		:effect
 			(and
-				(ball-at ?b ?f)
+				(not (robot-at ?f))
+				(robot-at ?t)
+				(holding ?a ?b)
+				(not (ball-at ?b ?f))
+				(ball-at ?b ?t)
+				(not (holding ?a ?b))
+				(free ?a)
+				(not (robot-at ?f))
+				(robot-at ?t)
 			)
 	)
 )
