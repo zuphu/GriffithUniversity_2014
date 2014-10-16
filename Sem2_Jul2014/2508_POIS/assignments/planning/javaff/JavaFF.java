@@ -42,10 +42,10 @@ import javaff.planning.HelpfulFilter;
 import javaff.planning.NullFilter;
 import javaff.scheduling.Scheduler;
 import javaff.scheduling.JavaFFScheduler;
+import javaff.search.HillClimbingSearch;
 import javaff.search.Search;
 import javaff.search.BestFirstSearch;
 import javaff.search.EnforcedHillClimbingSearch;
-
 
 import java.io.PrintStream;
 import java.io.PrintWriter;
@@ -207,19 +207,19 @@ public class JavaFF
 	
 	// Implementation of standard FF-style search
 
-	infoOutput.println("Performing search as in FF - first considering EHC with only helpful actions");
+	infoOutput.println("Performing search as in FF - first considering HC with only helpful actions");
 
 	// Now, initialise an EHC searcher
-	EnforcedHillClimbingSearch EHCS = new EnforcedHillClimbingSearch(initialState);
+	HillClimbingSearch HCS = new HillClimbingSearch(initialState);
 	
-	EHCS.setFilter(HelpfulFilter.getInstance()); // and use the helpful actions neighbourhood
+	HCS.setFilter(HelpfulFilter.getInstance()); // and use the helpful actions neighbourhood
 	
 	// Try and find a plan using EHC
-	State goalState = EHCS.search();
+	State goalState = HCS.search();
 
 	if (goalState == null) // if we can't find one
 	{
-		infoOutput.println("EHC failed, using best-first search, with all actions");
+		infoOutput.println("HC failed, using best-first search, with all actions");
 		
 		// create a Best-First Searcher
 		BestFirstSearch BFS = new BestFirstSearch(initialState);
